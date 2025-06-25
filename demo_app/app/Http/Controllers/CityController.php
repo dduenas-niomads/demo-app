@@ -33,7 +33,7 @@ class CityController extends Controller
             'name' => 'sometimes|required|string',
             'description' => 'nullable|string',
         ]);
-
+        
         $city->update($request->only('name', 'description'));
         return $city;
     }
