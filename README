@@ -1,0 +1,75 @@
+# Laravel 12 Demo Project
+
+Este es un proyecto de demostración utilizando **Laravel v12**. Está diseñado para pruebas y cuenta con un entorno de desarrollo basado en **Docker**, **Docker Compose** y un **Makefile**, lo que facilita su instalación y ejecución.
+
+## 🚀 Requisitos
+
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
+- [Make](https://www.gnu.org/software/make/) (opcional pero recomendado)
+
+---
+
+## 📦 Instalación
+
+### ✅ Opción 1: Usando Make (recomendado)
+
+Si tienes `make` instalado, simplemente ejecuta:
+
+```bash
+make initial-setup
+Este comando instalará todas las dependencias necesarias (como Composer dentro del contenedor) y dejará el entorno listo para usar.
+
+Luego, levanta el entorno con:
+
+bash
+Copiar
+Editar
+make up
+⚙️ Opción 2: Sin Make
+Si no tienes make, puedes hacerlo manualmente:
+
+Levanta los servicios con Docker Compose:
+
+bash
+Copiar
+Editar
+docker-compose up -d
+Ingresa al contenedor de la aplicación (demo_app):
+
+bash
+Copiar
+Editar
+docker exec -it demo_app bash
+Instala las dependencias de Laravel:
+
+bash
+Copiar
+Editar
+composer install
+🧰 Servicios
+Laravel v12
+
+PHP 8.3 con Apache
+
+SQLite (por defecto)
+
+Redis (si es utilizado)
+
+Dockerfile personalizado
+
+Makefile con comandos útiles
+
+🗂 Estructura básica
+bash
+Copiar
+Editar
+.
+├── app/                 # Código fuente de Laravel
+├── database/            # Contiene el archivo SQLite y migraciones
+├── docker-compose.yml   # Configuración de Docker Compose
+├── Dockerfile           # Imagen personalizada de PHP con Apache
+├── Makefile             # Comandos automatizados para desarrollo
+└── README.md            # Este archivo
+🧪 Propósito
+Este repositorio es exclusivamente para fines de prueba y desarrollo local. No está configurado para despliegue en producción.
