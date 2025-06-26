@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CityController;
 use App\Models\City;
 
 Route::get('/', function () {
@@ -24,21 +23,3 @@ Route::get('/cities/{id}/edit', function ($id) {
         return "El ID ingresado no existe. (" . $id . ")";
     }
 });
-
-// Eliminar ciudad de forma directa
-Route::get('/cities-delete/{id}', function ($id) {
-    $city = City::find($id);
-    if (!is_null($city)) {
-        // si existe, eliminar
-        $city->delete();
-
-        // retornar el listado de ciudades
-        return redirect('cities');
-    } else {
-        // si la ciudad no existe, retorna el formulario de creación
-        return "El ID ingresado no existe. (" . $id . ")";
-    }
-});
-
-// Apis de Ciudad
-Route::apiResource('cities', CityController::class);
