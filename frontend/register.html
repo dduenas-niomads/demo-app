@@ -13,7 +13,11 @@
         <div class="card shadow">
           <div class="card-body">
             <h1 class="card-title text-center mb-4">NioPOS Shopify APP</h1>
-                <h3>Formulario de inicio de sesión</h3>
+                <h3>Formulario de registro de cuenta</h3>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nombres</label>
+                    <input type="text" class="form-control" id="name" placeholder="Ingrese su nombre" required>
+                </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Correo electrónico</label>
                     <input type="email" class="form-control" id="email" placeholder="Ingrese su correo" required>
@@ -22,10 +26,10 @@
                     <label for="password" class="form-label">Contraseña</label>
                     <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña" required>
                 </div>
-                <button type="button" onclick="login(this);" class="btn btn-primary w-100">Iniciar sesión</button>
+                <button type="button" onclick="register(this);" class="btn btn-primary w-100">Registrar cuenta</button>
                 <div id="error-message" class="text-danger mt-3 text-center"></div>
           </div>
-          <a href="./register.html" style="text-align: center;">Si no tienes una cuenta, da clic aquí.</a>
+          <a href="./login.html" style="text-align: center;">Si ya tienes una cuenta, da clic aquí.</a>
         </div>
       </div>
     </div>
@@ -39,29 +43,28 @@
         window.location.href = 'user.html'; // Redirige a la página de usuario
     }
 
-    async function login(element) {
+    async function register(element) {
         const errorMessage = document.getElementById('error-message');
         errorMessage.textContent = '';
         element.disabled = true;
         element.textContent = 'Por favor, espere...';
 
+        const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('password').value;
 
         try {
-            const response = await fetch('http://localhost:8000/api/login', {
+            const response = await fetch('http://localhost:8000/api/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password })
+                body: JSON.stringify({ name, email, password, 'password_confirmation': confirmPassword })
             });
 
             const data = await response.json();
 
             if (response.ok) {
-                errorMessage.textContent = 'Login correcto.';
-                localStorage.setItem('access_token', data.access_token);
-                localStorage.setItem('token_type', data.token_type);
-                window.location.href = 'user.html'; // Redirige a la página de usuario
+                errorMessage.textContent = 'Cuenta creada correctamente. Dirígete al login.';
             } else {
                 errorMessage.textContent = data.error || 'Error desconocido.';
             }
@@ -69,7 +72,7 @@
             errorMessage.textContent = 'Error al conectar con el servidor.';
         } finally {
             element.disabled = false;
-            element.textContent = 'Iniciar sesión';
+            element.textContent = 'Registrar cuenta';
         }
     }
     

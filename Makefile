@@ -15,22 +15,22 @@ stop:
 up:
 	docker-compose up -d
 composer-install:
-	docker exec demo_app bash -c "cp .env.example .env"
-	docker exec demo_app bash -c "composer install"
-	docker exec demo_app bash -c "php artisan key:generate"
+	docker exec backend bash -c "cp .env.example .env"
+	docker exec backend bash -c "composer install"
+	docker exec backend bash -c "php artisan key:generate"
 composer-update:
-	docker exec demo_app bash -c "composer update"
+	docker exec backend bash -c "composer update"
 migrate:
-	docker exec demo_app bash -c "php artisan migrate"
+	docker exec backend bash -c "php artisan migrate"
 migrate-seed:
-	docker exec demo_app bash -c "php artisan migrate:fresh --seed"
+	docker exec backend bash -c "php artisan migrate:fresh --seed"
 test:
-	docker exec demo_app bash -c "php artisan test"
+	docker exec backend bash -c "php artisan test"
 route-list:
-	docker exec demo_app bash -c "php artisan route:list"
+	docker exec backend bash -c "php artisan route:list"
 schedule-list:
-	docker exec demo_app bash -c "php artisan schedule:list"
+	docker exec backend bash -c "php artisan schedule:list"
 articles-sync:
-	docker exec demo_app bash -c "php artisan app:article-sync-new-york-times"
-	docker exec demo_app bash -c "php artisan app:article-sync-news-api-dot-org"
-	docker exec demo_app bash -c "php artisan app:article-sync-news-api-ai"
+	docker exec backend bash -c "php artisan app:article-sync-new-york-times"
+	docker exec backend bash -c "php artisan app:article-sync-news-api-dot-org"
+	docker exec backend bash -c "php artisan app:article-sync-news-api-ai"
