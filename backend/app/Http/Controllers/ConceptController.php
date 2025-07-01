@@ -65,10 +65,8 @@ class ConceptController extends Controller
     public function update(UpdateConceptRequest $request, Concept $concept)
     {
         //
-
-        return response()->json([
-            "message" => "update"
-        ], 200);
+        $city->update($request->all());
+        return $city;
     }
 
     /**
@@ -77,9 +75,7 @@ class ConceptController extends Controller
     public function destroy(Concept $concept)
     {
         //
-
-        return response()->json([
-            "message" => "destroy"
-        ], 200);
+        $concept->delete();
+        return response()->json(null, 204);
     }
 }

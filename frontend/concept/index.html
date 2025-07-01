@@ -55,7 +55,10 @@
                     <td>${concept.id}</td>
                     <td>${concept.name}</td>
                     <td>${concept.description}</td>
-                    <td><a href="${concept.url}" target="_blank">Ver enlace</a></td>
+                    <td><ul>
+                        <li><button class="btn btn-light" onclick="updateConcept(${concept.id});">Editar</button></li>
+                        <li><button class="btn btn-light" onclick="destroyConcept(${concept.id});">Eliminar</button></li>
+                        </ul></td>
                     <td>${new Date(concept.created_at).toLocaleString()}</td>
                 `;
                 tbody.appendChild(row);
@@ -64,7 +67,43 @@
             .catch(error => {
                 console.error('Error al cargar los conceptos:', error);
             });
+        }
 
+        updateConcept = function (id) {
+            window.location = `./edit.html?conceptId=${id}`;
+        }
+
+        destroyConcept = function (id) {
+            const confirmed = window.confirm(`¿Estás seguro de eliminar el concepto ${id}?`);
+            if (!confirmed) {
+                return;
+            }
+            // console.log(id);
+            if (!accessToken && !tokenType) {
+                errorMessage.textContent = 'No hay sesión activa.';
+            } else {
+
+            fetch(`http://localhost:8000/api/concepts/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `${tokenType} ${accessToken}`
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = './index.html';
+                } else {
+                    return response.json().then(data => {
+                        throw new Error(data.message || 'Error al ELIMINAR concepto.');
+                    });
+                }
+            })
+            .catch(error => {
+                alert('Error de ELIMINACION de concepto: ' + error.message);
+                console.error(error);
+            });
+            }
         }
     });
   </script>
