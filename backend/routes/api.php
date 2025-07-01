@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\ConceptController;
 use App\Http\Controllers\ShopifyStoreController;
 use App\Http\Controllers\RecipeController; // Mantener si no lo has borrado, o eliminar
 use App\Http\Controllers\ClientController; // ¡Nueva importación!
@@ -29,6 +31,9 @@ Route::middleware('auth:api')->group(function () {
 
     // Apis de Tiendas Shopify
     Route::apiResource('shopify-stores', ShopifyStoreController::class);
+
+    // Api de Ejemplo para las práctivas
+    Route::apiResource('concepts', ConceptController::class);
 });
 
 // Ruta corregida para autenticar tienda Shopify (si la necesitas fuera de la autenticación)
