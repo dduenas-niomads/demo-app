@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\ConceptController;
 use App\Http\Controllers\ShopifyStoreController;
 
 Route::post('register', [AuthController::class, 'register']);
@@ -17,6 +19,9 @@ Route::middleware('auth:api')->group(function () {
 
     // Apis de TIendas Shopify
     Route::apiResource('shopify-stores', ShopifyStoreController::class);
+
+    // Api de Ejemplo para las práctivas
+    Route::apiResource('concepts', ConceptController::class);
 });
 
 Route::post('shopify-authenticate-store', [ShopifyStoreController::class, 'authenticateStore']);
