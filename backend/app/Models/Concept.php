@@ -10,5 +10,5 @@ class Concept extends Model
     /** @use HasFactory<\Database\Factories\ConceptFactory> */
     use HasFactory;
 
-    protected $fillable = { 'name', 'description', 'url'}:
+    protected $fillable = ['name', 'description', 'url'];
 }

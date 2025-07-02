@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar concepto</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    
+  <div class="container mt-5">
+    <h2 class="mb-4">Editar concepto</h2>
+
+    <form id="concept-form">
+      <div class="mb-3">
+        <label for="name" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="name" required />
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Descripción</label>
+        <textarea class="form-control" id="description" rows="5" required></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="url" class="form-label">URL</label>
+        <input type="url" class="form-control" id="url" required />
+      </div>
+        <button type="button" onclick="window.location = './index.html';" class="btn btn-secondary">Regresar</button>
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+    </form>
+  </div>
+
+    <!-- PASOS A SEGUIR -->
+<!-- 1. Validar si el concepto EXISTE usando su ID haciendo un fetch aquí: http://localhost:8000/api/concepts/6 -->
+ <!-- 2. Si el concepto EXISTE, mostrar la información en el formulario de editar -->
+  <!-- 3. Actualizar la información usando el API de actualizar http://localhost:8000/api/concepts/6 método PUT -->
+<script>
+    // VARIABLES GLOBALES
+    // Obtener los parámetros de la URL
+    const params = new URLSearchParams(window.location.search);
+    // Obtener el valor de "conceptId"
+    const conceptId = params.get('conceptId');
+    const accessToken = localStorage.getItem('access_token');
+    const tokenType = localStorage.getItem('token_type');
+  
+    // Llamar a paso 1 para que se ejecute al cargar la página
+    isConceptExist(conceptId);
+
+    // FUNCIONES
+    // paso 1
+    function isConceptExist (conceptId) {
+
+      if (!accessToken || !tokenType) {
+        alert('No hay sesión activa.');
+        return;
+      }
+
+      fetch(`http://localhost:8000/api/concepts/${conceptId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${tokenType} ${accessToken}`
+        }
+      })
+      .then(async response => {
+        if (response.ok) {
+            const data = await response.json();
+            // alert("El concepto existe.");
+            // aqui debe ir la funcion que va a reemplazar la data del formulario
+            loadDataInForm(data);
+        } else {
+            alert("El concepto no existe.");
+        }
+      })
+      .catch(error => {
+        alert('Hubo un error interno: ' + error.message);
+        console.error(error);
+      });
+    }
+    // paso 2
+    function loadDataInForm (data) {
+        console.log(data);
+        document.getElementById('name').value = data.name;
+        document.getElementById('description').value = data.description;
+        document.getElementById('url').value = data.url;
+    }
+    // paso 3
+    function updateConcept () {
+      const name = document.getElementById('name').value;
+      const description = document.getElementById('description').value;
+      const url = document.getElementById('url').value;
+    
+      fetch(`http://localhost:8000/api/concepts/${conceptId}`, {
+          method: 'PUT',
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `${tokenType} ${accessToken}`
+          },
+          body: JSON.stringify({
+              name: name,
+              description: description,
+              url: url
+          })
+      })
+      .then(response => {
+          if (response.ok) {
+              alert("Concepto actualizado.");
+              window.location = './index.html';
+          } else {
+              alert("No se pudo actualizar el concepto.");
+          }
+      })
+      .catch(error => {
+          alert("Error: " + error.message);
+          console.error(error);
+      });
+    }
+  
+    // EVENTOS - Detectar cuando se presione el botón Actualizar
+    document.getElementById('concept-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      updateConcept();
+    });
+    
+</script>
+</body>
+</html>
