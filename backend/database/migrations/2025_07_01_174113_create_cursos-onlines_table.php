@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('concepts', function (Blueprint $table) {
+        Schema::create('cursos-onlines', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // varchar 255
-            $table->text('description'); // longtext
-            $table->string('url');
+            $table->string(NAME);
+            $table->text(Descripcion);
+            $table->string(URL);
             $table->timestamps();
-            $table->num(edad);
         });
     }
 
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('concepts');
+        Schema::dropIfExists('cursos-onlines');
     }
 };

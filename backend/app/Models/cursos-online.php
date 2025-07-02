@@ -5,15 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Concept extends Model
+class cursos-online extends Model
 {
-    /** @use HasFactory<\Database\Factories\ConceptFactory> */
+    /** @use HasFactory<\Database\Factories\CursosOnlineFactory> */
     use HasFactory;
-
-
-    protected $table = 'concepts';
+    //creado por Jorge Gimenez
+    protected $table = 'curso';
 
     protected $fillable = ['name', 'description', 'url'];
-    
-
 }
