@@ -25,7 +25,7 @@
         <input type="url" class="form-control" id="url" required />
       </div>
         <button type="button" onclick="window.location = './index.html';" class="btn btn-secondary">Regresar</button>
-        <button type="submit" class="btn btn-primary">Actualizar</button>
+        <button type="button" onclick="updateConcept();" class="btn btn-primary">Actualizar</button>
     </form>
   </div>
 
@@ -82,9 +82,7 @@
         document.getElementById('url').value = data.url;
     }
     // paso 3
-    document.getElementById('concept-form').addEventListener('submit', updateConcept);
-
-    async function updateConcept(event) {
+     async function updateConcept(event) {
         event.preventDefault(); // Prevenir el envío por defecto del formulario
 
         const accessToken = localStorage.getItem('access_token');
@@ -104,29 +102,7 @@
             description: description,
             url: url
         };
-
-        try {
-            const response = await fetch(`http://localhost:8000/api/concepts/${conceptId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `${tokenType} ${accessToken}`
-                },
-                body: JSON.stringify(updatedData)
-            });
-
-            if (response.ok) {
-                alert('Concepto actualizado correctamente.');
-                window.location = './index.html';
-            } else {
-                const errorData = await response.json();
-                alert('Error al actualizar: ' + (errorData.detail || response.statusText));
-            }
-        } catch (error) {
-            alert('Hubo un error interno: ' + error.message);
-            console.error(error);
-        }
-    }
+        
 </script>
 </body>
 </html>
