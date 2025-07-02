@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreCourseRequest;
-use App\Http\Requests\UpdateCourseRequest;
-use App\Models\Course;
+use App\Http\Requests\StoreConceptRequest;
+use App\Http\Requests\UpdateConceptRequest;
+use App\Models\Concept;
 
-class CourseController extends Controller
+class ConceptController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Course::all();
+        //
+        return Concept::all();
     }
 
     /**
@@ -21,6 +22,8 @@ class CourseController extends Controller
      */
     public function create()
     {
+        //
+        
         return response()->json([
             "message" => "create"
         ], 200);
@@ -29,24 +32,28 @@ class CourseController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCourseRequest $request)
+    public function store(StoreConceptRequest $request)
     {
-        return Course::create($request->validated());
+        //
+        return Concept::create($request->all());
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Course $course)
+    public function show(Concept $concept)
     {
-        return $course;
+        //
+        return $concept;
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Course $course)
+    public function edit(Concept $concept)
     {
+        //
+
         return response()->json([
             "message" => "edit"
         ], 200);
@@ -55,18 +62,20 @@ class CourseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCourseRequest $request, Course $course)
+    public function update(UpdateConceptRequest $request, Concept $concept)
     {
-        $course->update($request->validated());
-        return $course;
+        //
+        $concept->update($request->all());
+        return $concept;
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Course $course)
+    public function destroy(Concept $concept)
     {
-        $course->delete();
+        //
+        $concept->delete();
         return response()->json(null, 204);
     }
 }

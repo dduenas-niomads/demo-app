@@ -10,10 +10,5 @@ class Concept extends Model
     /** @use HasFactory<\Database\Factories\ConceptFactory> */
     use HasFactory;
 
-
-    protected $table = 'concepts';
-
     protected $fillable = ['name', 'description', 'url'];
-    
-
 }
