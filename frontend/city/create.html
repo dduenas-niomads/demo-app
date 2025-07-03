@@ -23,6 +23,11 @@
         <label for="country" class="form-label">Country</label>
         <input type="text" class="form-control" id="country" required />
       </div>
+      //Añadida nueva función para añadir poblacion
+      <div class="mb-3">
+        <label for="population" class="form-label">Población</label>
+        <input type="number" class="form-control" id="population" required />
+      </div>
       <button type="button" onclick="window.location = './index.html';" class="btn btn-secondary">Regresar</button>
       <button type="submit" class="btn btn-primary">Crear</button>
     </form>
@@ -31,10 +36,12 @@
   <script>
     document.getElementById('city-form').addEventListener('submit', function (e) {
       e.preventDefault();
+      //Añadida nueva constante para registrar population
 
       const name = document.getElementById('name').value.trim();
       const description = document.getElementById('description').value.trim();
       const country = document.getElementById('country').value.trim();
+      const population = document.getElementById('population').value.trim();
 
       const accessToken = localStorage.getItem('access_token');
       const tokenType = localStorage.getItem('token_type');
@@ -50,10 +57,12 @@
           'Content-Type': 'application/json',
           'Authorization': `${tokenType} ${accessToken}`
         },
+        //Añade el campo poblacion al servidor
         body: JSON.stringify({
           name,
           description,
-          country
+          country,
+          population
         })
       })
       .then(response => {
