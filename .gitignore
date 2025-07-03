@@ -1,1 +1,7 @@
 .DS_Store
+# Ignorar el archivo .env
+.env
+
+# Ignorar la carpeta de base de datos SQLite
+database/
+
