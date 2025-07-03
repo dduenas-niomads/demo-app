@@ -25,6 +25,7 @@
         <tr>
           <th>ID</th>
           <th>Nombre</th>
+          <th>País</th>
           <th>Descripción</th>
           <th>Creado</th>
           <th>Actualizado</th>
@@ -80,6 +81,7 @@
             row.innerHTML = `
                 <td>${city.id}</td>
                 <td>${city.name}</td>
+                <td>${city.country}</td>
                 <td>${city.description}</td>
                 <td>${new Date(city.created_at).toLocaleString()}</td>
                 <td>${new Date(city.updated_at).toLocaleString()}</td>

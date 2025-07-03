@@ -21,8 +21,8 @@
         <textarea class="form-control" id="description" rows="5" required></textarea>
       </div>
       <div class="mb-3">
-        <label for="url" class="form-label">URL</label>
-        <input type="url" class="form-control" id="url" required />
+        <label for="country" class="form-label">País</label>
+        <input type="text" class="form-control" id="country" required />
       </div>
         <button type="button" onclick="window.location = './index.html';" class="btn btn-secondary">Regresar</button>
         <button type="submit" class="btn btn-primary">Actualizar</button>
@@ -81,24 +81,24 @@
         console.log(data);
         document.getElementById('name').value = data.name;
         document.getElementById('description').value = data.description;
-        document.getElementById('url').value = data.url;
+        document.getElementById('country').value = data.country;
     }
     // paso 3
     function updateCity () {
       const name = document.getElementById('name').value;
       const description = document.getElementById('description').value;
-      const url = document.getElementById('url').value;
+      const country = document.getElementById('country').value;
     
       fetch(`http://localhost:8000/api/cities/${cityId}`, {
           method: 'PUT',
           headers: {
-              'City-Type': 'application/json',
+              'Content-Type': 'application/json',
               'Authorization': `${tokenType} ${accessToken}`
           },
           body: JSON.stringify({
               name: name,
               description: description,
-              url: url
+              country: country,
           })
       })
       .then(response => {

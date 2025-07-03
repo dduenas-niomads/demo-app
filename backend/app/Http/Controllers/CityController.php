@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\City;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreCityRequest;
+use App\Http\Requests\UpdateCityRequest;
 
 class CityController extends Controller
 {
@@ -12,14 +14,9 @@ class CityController extends Controller
         return City::all();
     }
 
-    public function store(Request $request)
+    public function store(StoreCityRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string',
-            'description' => 'nullable|string',
-        ]);
-
-        return City::create($request->only('name', 'description'));
+        return City::create($request->all());
     }
 
     public function show(City $city)
@@ -27,14 +24,9 @@ class CityController extends Controller
         return $city;
     }
 
-    public function update(Request $request, City $city)
+    public function update(UpdateCityRequest $request, City $city)
     {
-        $request->validate([
-            'name' => 'sometimes|required|string',
-            'description' => 'nullable|string',
-        ]);
-        
-        $city->update($request->only('name', 'description'));
+        $city->update($request->all());
         return $city;
     }
 
