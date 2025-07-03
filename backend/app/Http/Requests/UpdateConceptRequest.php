@@ -23,7 +23,6 @@ class UpdateConceptRequest extends FormRequest
     {
         return [
             //
-            'id'           => 'numeric|required',
             'name'         => 'string|required|max:100',
             'description'  => 'string|required',
             'url'          => 'string|required|max:200',

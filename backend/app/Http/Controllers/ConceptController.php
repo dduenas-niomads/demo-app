@@ -65,8 +65,8 @@ class ConceptController extends Controller
     public function update(UpdateConceptRequest $request, Concept $concept)
     {
         //
-        $city->update($request->all());
-        return $city;
+        $concept->update($request->all());
+        return $concept;
     }
 
     /**
