@@ -41,7 +41,7 @@
       const name = document.getElementById('name').value.trim();
       const description = document.getElementById('description').value.trim();
       const country = document.getElementById('country').value.trim();
-      const population = document.getElementById('population').value.trim();
+      const population = parseInt(document.getElementById('population').value.trim());
 
       const accessToken = localStorage.getItem('access_token');
       const tokenType = localStorage.getItem('token_type');
