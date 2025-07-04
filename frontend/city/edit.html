@@ -18,12 +18,27 @@
       </div>
       <div class="mb-3">
         <label for="description" class="form-label">Descripción</label>
-        <textarea class="form-control" id="description" rows="5" required></textarea>
+        <textarea class="form-control" id="description" rows="7" required></textarea>
       </div>
       <div class="mb-3">
         <label for="country" class="form-label">País</label>
         <input type="text" class="form-control" id="country" required />
       </div>
+      <div class="mb-3">
+        <label for="population" class="form-label">Población</label>
+      <!--<input type="number" class="form-control" id="population" required step="any" placeholder="Ej. 100.000" />-->
+      <!--<input type="text" class="form-control" id="population" required placeholder="Ej. 10000" />-->
+        <input type="text" class="form-control" id="population" required placeholder="Ej. 10000"/>
+          <script>
+            const input = document.getElementById("mynumber");
+            input.addEventListener("change", () => {
+              let value = input.value.replace(/\./g, "").replace(",", ".");
+              let number = parseFloat(value);
+              console.log("Valor numérico:", number);
+            });
+          </script>
+  
+      </div> 
         <button type="button" onclick="window.location = './index.html';" class="btn btn-secondary">Regresar</button>
         <button type="submit" class="btn btn-primary">Actualizar</button>
     </form>
@@ -82,12 +97,14 @@
         document.getElementById('name').value = data.name;
         document.getElementById('description').value = data.description;
         document.getElementById('country').value = data.country;
+        document.getElementById('population').value = data.population;
     }
     // paso 3
     function updateCity () {
       const name = document.getElementById('name').value;
       const description = document.getElementById('description').value;
       const country = document.getElementById('country').value;
+      const population = document.getElementById('population').value;
     
       fetch(`http://localhost:8000/api/cities/${cityId}`, {
           method: 'PUT',
@@ -99,6 +116,7 @@
               name: name,
               description: description,
               country: country,
+              population: population,
           })
       })
       .then(response => {
