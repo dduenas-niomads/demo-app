@@ -20,9 +20,6 @@ Route::middleware('auth:api')->group(function () {
     // Apis de Ciudad
     Route::apiResource('cities', CityController::class);
 
-    // Apis de Recetas (si decides mantenerlas o las habías borrado)
-    // Route::apiResource('recipes', RecipeController::class);
-
     // Apis de Clientes
     Route::apiResource('clients', ClientController::class); // ¡Nuevas rutas!
 
