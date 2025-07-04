@@ -6,6 +6,7 @@ use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Database\Seeders\ConceptSeeder;
 use Database\Seeders\CitySeeder;
+use Database\Seeders\CountrySeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -25,6 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ConceptSeeder::class,
             CitySeeder::class,
+            CountrySeeder::class,
         ]);
     }
 }

@@ -26,18 +26,8 @@
       </div>
       <div class="mb-3">
         <label for="population" class="form-label">Población</label>
-      <!--<input type="number" class="form-control" id="population" required step="any" placeholder="Ej. 100.000" />-->
-      <!--<input type="text" class="form-control" id="population" required placeholder="Ej. 10000" />-->
-        <input type="text" class="form-control" id="population" required placeholder="Ej. 10000"/>
-          <script>
-            const input = document.getElementById("mynumber");
-            input.addEventListener("change", () => {
-              let value = input.value.replace(/\./g, "").replace(",", ".");
-              let number = parseFloat(value);
-              console.log("Valor numérico:", number);
-            });
-          </script>
-  
+        <input type="text" class="form-control" id="population" required 
+          placeholder="Ej. 10000" onkeyup="convertToNumber(this);" />
       </div> 
         <button type="button" onclick="window.location = './index.html';" class="btn btn-secondary">Regresar</button>
         <button type="submit" class="btn btn-primary">Actualizar</button>
@@ -138,6 +128,18 @@
       e.preventDefault();
       updateCity();
     });
+
+    function convertToNumber(element) {
+      let value = element.value.replace(/\./g, "").replace(",", ".");
+      let number = parseFloat(value);
+      console.log("Valor numérico:", number);
+      // cambiar el valor
+      if (isNaN(number)) {
+        element.value = 0;
+      } else {
+        element.value = number;
+      }
+    }
     
 </script>
 </body>

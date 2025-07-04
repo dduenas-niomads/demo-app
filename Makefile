@@ -34,3 +34,7 @@ articles-sync:
 	docker exec backend bash -c "php artisan app:article-sync-new-york-times"
 	docker exec backend bash -c "php artisan app:article-sync-news-api-dot-org"
 	docker exec backend bash -c "php artisan app:article-sync-news-api-ai"
+# Ejemplo para crear entidad nueva:  
+#		docker exec backend bash -c "php artisan make:model NombreEntidad -a"
+# Ejemplo para agregar un campo a una entidad en la base de datos: 
+#		docker exec backend bash -c "php artisan make:migration add_nombre_campo_to_entidad"
