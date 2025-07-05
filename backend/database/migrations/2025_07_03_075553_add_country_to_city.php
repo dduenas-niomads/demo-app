@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('cities', function (Blueprint $table) {
-            $table->string("country")->nullable();
-            $table->string("url")->nullable();
-            $table->integer("population")->nullable();
+        Schema::table('countries', function (Blueprint $table) {
+            $table->string("flag")->nullable(); 
+            $table->string("iso_code")->nullable();
+           
         });
     }
 
@@ -23,8 +23,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('cities', function (Blueprint $table) {
-            //
+        Schema::table('countries', function (Blueprint $table) {
+            $table->dropColumn("flag");
+            $table->dropColumn("iso_code");
         });
+       
     }
 };
