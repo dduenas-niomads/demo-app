@@ -14,16 +14,17 @@ class UpdateCountryRequest extends FormRequest
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+    /*Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+    public function rules()
     {
         return [
-            //
-            'name' => 'string|required|max:100',
+            'name'         => 'string|required|max:100',
+            'description'  => 'string|required',
+            'country'      => 'string|required',
+            'population'   => 'numeric',
+            'code'         => 'string|required|max:5',
+            'iso_code'     => 'string|required|max:3',
         ];
     }
 }

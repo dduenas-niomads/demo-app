@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreCountryRequest;
 use App\Http\Requests\UpdateCountryRequest;
 use App\Models\Country;
@@ -30,7 +31,7 @@ class CountryController extends Controller
      */
     public function store(StoreCountryRequest $request)
     {
-        //
+        return Country::create($request->all());
     }
 
     /**
@@ -38,7 +39,7 @@ class CountryController extends Controller
      */
     public function show(Country $country)
     {
-        //
+        return $country;
     }
 
     /**
@@ -54,7 +55,8 @@ class CountryController extends Controller
      */
     public function update(UpdateCountryRequest $request, Country $country)
     {
-        //
+        $country->update($request->all());
+        return $country;    
     }
 
     /**
@@ -62,6 +64,7 @@ class CountryController extends Controller
      */
     public function destroy(Country $country)
     {
-        //
+        $country->delete();
+        return response()->json(null,204);
     }
 }
