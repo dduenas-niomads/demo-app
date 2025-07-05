@@ -31,7 +31,16 @@ class CountryController extends Controller
      */
     public function store(StoreCountryRequest $request)
     {
-        return Country::create($request->all());
+        $country = Country::create()([
+            'name' => $request->name,
+            'description' => $request->description,
+            'country' => $request->country,
+            'population' => $request->population,
+            'code' => $request->code,
+            'iso_code' => $request->iso_code,
+            'flag' => $request->flag
+        ]);
+        return response()->json($country, 201);
     }
 
     /**
@@ -55,8 +64,16 @@ class CountryController extends Controller
      */
     public function update(UpdateCountryRequest $request, Country $country)
     {
-        $country->update($request->all());
-        return $country;    
+        $country->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'country' => $request->country,
+            'population' => $request->population,
+            'code' => $request->code,
+            'iso_code' => $request->iso_code,
+            'flag' => $request->flag
+        ]);
+        return response()->json($country);  
     }
 
     /**
