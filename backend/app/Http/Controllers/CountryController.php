@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreCountryRequest;
 use App\Http\Requests\UpdateCountryRequest;
 use App\Models\Country;
@@ -30,7 +31,16 @@ class CountryController extends Controller
      */
     public function store(StoreCountryRequest $request)
     {
-        //
+        $country = Country::create()([
+            'name' => $request->name,
+            'description' => $request->description,
+            'country' => $request->country,
+            'population' => $request->population,
+            'code' => $request->code,
+            'iso_code' => $request->iso_code,
+            'flag' => $request->flag
+        ]);
+        return response()->json($country, 201);
     }
 
     /**
@@ -38,7 +48,7 @@ class CountryController extends Controller
      */
     public function show(Country $country)
     {
-        //
+        return $country;
     }
 
     /**
@@ -54,7 +64,16 @@ class CountryController extends Controller
      */
     public function update(UpdateCountryRequest $request, Country $country)
     {
-        //
+        $country->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'country' => $request->country,
+            'population' => $request->population,
+            'code' => $request->code,
+            'iso_code' => $request->iso_code,
+            'flag' => $request->flag
+        ]);
+        return response()->json($country);  
     }
 
     /**
@@ -62,6 +81,7 @@ class CountryController extends Controller
      */
     public function destroy(Country $country)
     {
-        //
+        $country->delete();
+        return response()->json(null,204);
     }
 }
