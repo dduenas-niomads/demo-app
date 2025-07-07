@@ -28,7 +28,7 @@ class UpdateCountryRequest extends FormRequest
             'country'      => 'string|required',
             'population'   => 'numeric',
             'code'         => 'string|required|max:5',
-            'iso_code'     => 'string|required|max:3' . implode(',', $validIsoCodes),
+            'iso_code'     => 'string|required|max:4' . implode(',', $validIsoCodes),
             'flag'         => 'string|required|max:100' . implode(',', $validFlags),
         ];
     }

@@ -10,5 +10,5 @@ class Country extends Model
     /** @use HasFactory<\Database\Factories\CountryFactory> */
     use HasFactory;
 
-    protected $fillable = ['iso_code', 'name'];
+    protected $fillable = ['iso_code', 'name' , 'flag'];
 }
