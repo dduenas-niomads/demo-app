@@ -40,7 +40,7 @@ class CountryController extends Controller
             'iso_code' => $request->iso_code,
             'flag' => $request->flag
         ]);
-        return response()->json($country, 201);
+        return response()->json($country, 202);
     }
 
     /**
@@ -73,7 +73,7 @@ class CountryController extends Controller
             'iso_code' => $request->iso_code,
             'flag' => $request->flag
         ]);
-        return response()->json($country);  
+        return response()->json($country, 202);  
     }
 
     /**
