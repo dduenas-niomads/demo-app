@@ -79,7 +79,7 @@
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${country.id}</td>
-                <td></td>
+                <td>${country.iso_code || ''}</td>
                 <td>${country.name}</td>
                 <td>${new Date(country.created_at).toLocaleString()}</td>
                 <td>${new Date(country.updated_at).toLocaleString()}</td>

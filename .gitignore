@@ -3,5 +3,5 @@
 .env
 
 # Ignorar la carpeta de base de datos SQLite
-database/
+database/database.sqlite
 

@@ -3,56 +3,63 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Create Country</title>
+
+  <title>Crear nuevo País</title>
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
   <div class="container mt-5">
-    <h2 class="mb-4">Add New Country</h2>
-
+    <h2 class="mb-4">Crear nuevo País</h2>
     <form id="country-form">
+ <div class="mb-3">
+    <label for="name" class="form-label">Nombre</label>
+    <input type="text" class="form-control" id="name" required />
+</div>
+<div class="mb-3">
+  <label for="iso_code" class="form-label">ISO</label>
+  <input type="text" class="form-control" id="iso_code" maxlength="3" required />
+</div>
       <div class="mb-3">
-        <label for="name" class="form-label">Country Name</label>
-        <input type="text" class="form-control" id="name" placeholder="Example: Ecuador" required />
+        <label for="description" class="form-label">Descripción</label>
+        <textarea class="form-control" id="description" rows="5" required></textarea>
       </div>
       <div class="mb-3">
-        <label for="iso" class="form-label">ISO Code (Example: EC, PE)</label>
-        <input type="text" class="form-control" id="iso" maxlength="3" placeholder="e.g., EC" required />
+        <label for="population" class="form-label">Población</label>
+        <input type="number" min="50" max="50000000" class="form-control" id="population" required />
       </div>
-      <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
-        <textarea class="form-control" id="description" rows="4" placeholder="Add a brief description of the country"></textarea>
-      </div>
-      <div class="d-flex gap-2">
-        <button type="button" onclick="window.location = './index.html';" class="btn btn-secondary">Back</button>
-        <button type="submit" class="btn btn-success">Create</button>
-      </div>
+      <button type="button" onclick="window.location = './index.html';" class="btn btn-secondary">Regresar</button>
+      <button type="submit" class="btn btn-primary">Crear</button>
     </form>
   </div>
 
-  <script>
-    const apiUrl = 'http://localhost:8000/api/countries';
-
-    // Force ISO field to accept only letters and uppercase
-    document.getElementById('iso').addEventListener('input', function () {
+    <script>
+    // Forzar que el campo ISO solo acepte letras y mayúsculas
+    document.getElementById('iso_code').addEventListener('input', function () {
       this.value = this.value.replace(/[^a-zA-Z]/g, '').toUpperCase();
     });
 
-    // Create new country
+    // Crear nuevo país
     document.getElementById('country-form').addEventListener('submit', function (e) {
       e.preventDefault();
 
       const name = document.getElementById('name').value.trim();
-      const iso = document.getElementById('iso').value.trim().toUpperCase();
+      const iso_code = document.getElementById('iso_code').value.trim().toUpperCase();
       const description = document.getElementById('description').value.trim();
+      const population = parseInt(document.getElementById('population').value.trim());
 
       if (!name) {
-        alert('Please enter the country name.');
+        alert('Por favor ingresa el nombre del país.');
         return;
       }
 
-      if (!iso || iso.length < 2 || iso.length > 3) {
-        alert('Please enter a valid ISO code (2 or 3 letters).');
+      if (!iso_code || iso_code.length < 2 || iso_code.length > 3) {
+        alert('Por favor ingresa un código ISO válido (2 o 3 letras).');
+        return;
+      }
+
+      if (isNaN(population) || population < 50 || population > 50000000) {
+        alert('Por favor ingresa una población válida (entre 50 y 50,000,000).');
         return;
       }
 
@@ -60,30 +67,35 @@
       const tokenType = localStorage.getItem('token_type');
 
       if (!accessToken || !tokenType) {
-        alert('No active session. Please log in to continue.');
+        alert('No hay sesión activa.');
         return;
       }
 
-      fetch(apiUrl, {
+      fetch('http://localhost:8000/api/countries', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `${tokenType} ${accessToken}`
         },
-        body: JSON.stringify({ name, iso, description })
+        body: JSON.stringify({
+          name,
+          iso_code,
+          description,
+          population
+        })
       })
       .then(response => {
         if (response.ok) {
-          alert('Country created successfully.');
+          alert('País creado exitosamente.');
           window.location.href = './index.html';
         } else {
           return response.json().then(data => {
-            throw new Error(data.message || 'Error creating the country.');
+            throw new Error(data.message || 'Error al crear el país.');
           });
         }
       })
       .catch(error => {
-        alert('Error creating the country: ' + error.message);
+        alert('Error al crear el país: ' + error.message);
         console.error(error);
       });
     });
