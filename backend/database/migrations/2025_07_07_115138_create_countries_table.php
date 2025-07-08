@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('iso_code')->nullable();
             $table->string('flag')->nullable();
+            $table->text('description')->nullable(); // <-- Agregado
+            $table->unsignedBigInteger('population')->nullable(); // <-- Agregado
             $table->timestamps();
         });
     }
