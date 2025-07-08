@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('cities', function (Blueprint $table) {
-            $table->string("country")->nullable();
-            // $table->string("url")->nullable();
-            $table->integer("population")->nullable();
+        Schema::create('countries', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('iso_code')->nullable();
+           # $table->string('flag')->nullable();
+            $table->timestamps();
         });
     }
 
