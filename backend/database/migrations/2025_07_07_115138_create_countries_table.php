@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('iso_code')->nullable();
-           # $table->string('flag')->nullable();
+            $table->string('flag')->nullable();
             $table->timestamps();
         });
     }
