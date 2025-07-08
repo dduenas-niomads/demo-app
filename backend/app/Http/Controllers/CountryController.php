@@ -31,11 +31,8 @@ class CountryController extends Controller
      */
     public function store(StoreCountryRequest $request)
     {
-        $country = Country::create()([
+        $country = Country::create([
             'name' => $request->name,
-            'description' => $request->description,
-            'country' => $request->country,
-            'population' => $request->population,
             'code' => $request->code,
             'iso_code' => $request->iso_code,
             'flag' => $request->flag
@@ -66,9 +63,6 @@ class CountryController extends Controller
     {
         $country->update([
             'name' => $request->name,
-            'description' => $request->description,
-            'country' => $request->country,
-            'population' => $request->population,
             'code' => $request->code,
             'iso_code' => $request->iso_code,
             'flag' => $request->flag
