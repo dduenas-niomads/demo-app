@@ -1,4 +1,4 @@
- <?php
+<?php
 
 namespace App\Http\Requests;
 
@@ -17,8 +17,8 @@ class StoreCountryRequest extends FormRequest
             'name' => 'required|string|max:255',
             'iso_code' => 'required|string|max:3',
             'flag' => 'nullable|string|max:255',
-            'description' => 'nullable|string',
-            'population' => 'nullable|integer|min:50|max:50000000',
+            'description' => 'string',
+            'population' => 'integer|min:50|max:50000000',
         ];
     }
 }

@@ -11,12 +11,13 @@ class Country extends Model
     /** @use HasFactory<\Database\Factories\CountryFactory> */
     use HasFactory;
 
-     protected $fillable = [
+    protected $fillable = [
         'name',
         'iso_code',
         'flag',
         'description',   
         'population' 
+    ];
 
      public function cities()
     {

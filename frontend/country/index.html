@@ -24,9 +24,12 @@
   <table class="table table-bordered table-hover">
       <thead class="table-dark">
         <tr>
+          <th>Bandera</th>
           <th>ID</th>
           <th>ISO</th>
           <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Población</th>
           <th>Creado</th>
           <th>Actualizado</th>
           <th>Opciones</th>
@@ -79,9 +82,12 @@
         data.forEach(country => {
             const row = document.createElement('tr');
             row.innerHTML = `
+                <td>${country.flag}</td>
                 <td>${country.id}</td>
                 <td>${country.iso_code || ''}</td>
                 <td>${country.name}</td>
+                <td>${country.description}</td>
+                <td>${country.population}</td>
                 <td>${new Date(country.created_at).toLocaleString()}</td>
                 <td>${new Date(country.updated_at).toLocaleString()}</td>
                 <td><ul>

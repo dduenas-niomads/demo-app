@@ -21,7 +21,9 @@
       </div>
       <div class="mb-3">
         <label for="country" class="form-label">Country</label>
-        <input type="text" class="form-control" id="country" required />
+        <select id="country" class="form-control">
+          <option value="0">Seleccione un país</option>
+        </select>
       </div>
       <!-- Añadida nueva función para añadir poblacion -->
       <div class="mb-3">
@@ -34,6 +36,10 @@
   </div>
 
   <script>
+    const accessToken = localStorage.getItem('access_token');
+    const tokenType = localStorage.getItem('token_type');
+    obtenerListadoDePaises();
+
     document.getElementById('city-form').addEventListener('submit', function (e) {
       e.preventDefault();
       //Añadida nueva constante para registrar population
@@ -42,9 +48,6 @@
       const description = document.getElementById('description').value.trim();
       const country = document.getElementById('country').value.trim();
       const population = parseInt(document.getElementById('population').value.trim());
-
-      const accessToken = localStorage.getItem('access_token');
-      const tokenType = localStorage.getItem('token_type');
 
       if (!accessToken || !tokenType) {
         alert('No hay sesión activa.');
@@ -79,6 +82,54 @@
         console.error(error);
       });
     });
+
+    function obtenerListadoDePaises() {      
+        if (!accessToken && !tokenType) {
+            errorMessage.textContent = 'No hay sesión activa.';
+            return;
+        }
+        
+        fetch('http://localhost:8000/api/countries', {
+                headers: {
+                'Authorization': `${tokenType} ${accessToken}`
+                }
+            })
+        .then(response => response.json())
+        .then(data => {
+            countriesData = data;
+            showDataInSelect(countriesData);
+        })
+        .catch(error => {
+            console.error('Error al cargar los paises:', error);
+        });
+    }
+
+    function showDataInSelect(data) {        
+        const select = document.getElementById('country');
+        select.innerHTML = ``;
+
+        // crear opción vacía
+        const emptyOption = document.createElement('option');
+        // Asignar propiedades
+        emptyOption.value = "0";            // El valor del emptyOption (atributo value)
+        emptyOption.text = "Seleccione un país";           // El texto que se mostrará
+        emptyOption.selected = true;             // Marcarlo como seleccionado (opcional)
+        emptyOption.disabled = false;            // Habilitado (opcional)
+        // Agregarlo a un select
+        select.appendChild(emptyOption);
+
+        // agregar todos los países
+        data.forEach(country => {
+            const option = document.createElement('option');
+            // Asignar propiedades
+            option.value = country.id;            // El valor del option (atributo value)
+            option.text = country.flag + " " + country.name;           // El texto que se mostrará
+            option.selected = false;             // Marcarlo como seleccionado (opcional)
+            option.disabled = false;            // Habilitado (opcional)
+            // Agregarlo a un select
+            select.appendChild(option);
+        });
+    }
   </script>
 </body>
 </html>

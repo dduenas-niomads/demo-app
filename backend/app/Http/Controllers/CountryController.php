@@ -35,7 +35,9 @@ class CountryController extends Controller
             'name' => $request->name,
             'code' => $request->code,
             'iso_code' => $request->iso_code,
-            'flag' => $request->flag
+            'flag' => $request->flag,
+            'description' => $request->description,
+            'population' => $request->population
         ]);
         return response()->json($country, 202);
     }
@@ -65,7 +67,9 @@ class CountryController extends Controller
             'name' => $request->name,
             'code' => $request->code,
             'iso_code' => $request->iso_code,
-            'flag' => $request->flag
+            'flag' => $request->flag,
+            'description' => $request->description,
+            'population' => $request->population
         ]);
         return response()->json($country, 202);  
     }

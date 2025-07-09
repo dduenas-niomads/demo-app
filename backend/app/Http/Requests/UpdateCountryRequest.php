@@ -19,17 +19,22 @@ class UpdateCountryRequest extends FormRequest
      */
     public function rules()
     {
-        $validIsoCodes = Country::all()->pluck('iso_code')->toArray();
-        $validFlags = Country::all()->pluck('flag')->toArray();
+        // $validIsoCodes = Country::all()->pluck('iso_code')->toArray();
+        // $validFlags = Country::all()->pluck('flag')->toArray();
 
+        // return [
+        //     'name'         => 'string|required|max:100',
+        //     'description'  => 'string|required',
+        //     'population'   => 'numeric',
+        //     'iso_code'     => 'string|required|max:4' . implode(',', $validIsoCodes),
+        //     'flag'         => 'string|required|max:100' . implode(',', $validFlags),
+        // ];
         return [
-            'name'         => 'string|required|max:100',
-            'description'  => 'string|required',
-            'country'      => 'string|required',
-            'population'   => 'numeric',
-            'code'         => 'string|required|max:5',
-            'iso_code'     => 'string|required|max:4' . implode(',', $validIsoCodes),
-            'flag'         => 'string|required|max:100' . implode(',', $validFlags),
+            'name' => 'required|string|max:255',
+            'iso_code' => 'required|string|max:3',
+            'flag' => 'nullable|string|max:255',
+            'description' => 'string',
+            'population' => 'integer|min:50|max:50000000',
         ];
     }
 }
