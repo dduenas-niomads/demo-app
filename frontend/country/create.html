@@ -41,7 +41,7 @@
 
       const name = document.getElementById('name').value.trim();
       const description = document.getElementById('description').value.trim();
-      const country = document.getElementById('country').value.trim();
+      const iso_code = document.getElementById('iso_code').value.trim().toUpperCase();
       const population = parseInt(document.getElementById('population').value.trim());
 
       if (!name) {
@@ -76,11 +76,6 @@
         //Añade el campo poblacion al servidor
         body: JSON.stringify({
           name,
-          description,
-          country,
-
-        body: JSON.stringify({
-          name,
           iso_code,
           description,
           population,
@@ -91,7 +86,8 @@
           alert('País creado exitosamente.');
 
         alert('Error de creación de país: ' + error.message);
-      });
+        }
+      })
     });
   </script>
 </body>
