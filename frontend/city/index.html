@@ -15,6 +15,14 @@
             <button type="button" onclick="window.location = '../user.html';" class="btn btn-light">Ir al perfil</button>
             <button type="button" onclick="window.location = './create.html';" class="btn btn-secondary">Crear ciudad</button>
         </div>
+        <div class="row mb-3">
+  <div class="col-md-6">
+    <select id="countrySelect" class="form-select"></select>
+  </div>
+  <div class="col-md-6">
+    <button type="button" onclick="goToCountryCities();" class="btn btn-primary">Ver ciudades del país</button>
+  </div>
+</div>
         <div class="col-md-6">
             <input type="text" class="form-control" placeholder="Ingrese texto y presione ENTER para buscar" onkeyup="searchFilter(this, event);">
         </div>
@@ -42,6 +50,8 @@
   <!-- Bootstrap Bundle con Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+
+  
   <!-- Script para cargar datos -->
   <script>
     // VARIABLES GLOBALES
@@ -51,28 +61,46 @@
 
     // LLAMAR A FUNCION DE INCIO
     loadData();
+    loadCountries();
 
-    // FUNCIONES
-    function loadData() {
-        if (!accessToken && !tokenType) {
-            errorMessage.textContent = 'No hay sesión activa.';
-            return;
+     function goToCountryCities() {
+        const countryId = document.getElementById('countrySelect').value;
+        if (countryId) {
+            window.location = `./index.html?country_id=${countryId}`;
+        }  else {
+            window.location = './index.html';
         }
-        
-        fetch('http://localhost:8000/api/cities', {
-                headers: {
-                'Authorization': `${tokenType} ${accessToken}`
-                }
-            })
-        .then(response => response.json())
-        .then(data => {
-            citiesData = data;
-            showDataOnTable(citiesData);
-        })
-        .catch(error => {
-            console.error('Error al cargar los ciudades:', error);
-        });
     }
+
+         function loadData() {
+    if (!accessToken && !tokenType) {
+        errorMessage.textContent = 'No hay sesión activa.';
+        return;
+    }
+
+    // Obtener country_id de la URL si existe
+    const params = new URLSearchParams(window.location.search);
+    const countryId = params.get('country_id');
+    let url = 'http://localhost:8000/api/cities';
+    if (countryId) {
+        url += `?country_id=${countryId}`;
+    }
+
+    fetch(url, {
+        headers: {
+            'Authorization': `${tokenType} ${accessToken}`
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        citiesData = data;
+        showDataOnTable(citiesData);
+    })
+    .catch(error => {
+        console.error('Error al cargar los ciudades:', error);
+    });
+}
 
     function showDataOnTable(data) {        
         const tbody = document.getElementById('cities-table-body');
@@ -82,7 +110,7 @@
             row.innerHTML = `
                 <td>${city.id}</td>
                 <td>${city.name}</td>
-                <td>${city.country}</td>
+                <td>${city.country ? city.country.name : ''}</td>
                 <td>${city.population ?? ''}</td>
                 <td>${city.description}</td>
                 <td>${new Date(city.created_at).toLocaleString()}</td>
@@ -99,6 +127,22 @@
     function updateCity(id) {
         window.location = `./edit.html?cityId=${id}`;
     }
+
+function loadCountries() {
+    fetch('http://localhost:8000/api/countries', {
+        headers: {
+            'Authorization': `${tokenType} ${accessToken}`
+        }
+    })
+    .then(response => response.json())
+    .then(countries => {
+        const select = document.getElementById('countrySelect');
+        select.innerHTML = '<option value="">Seleccione un país</option>';
+        countries.forEach(country => {
+            select.innerHTML += `<option value="${country.id}">${country.name}</option>`;
+        });
+    });
+}
 
     function destroyCity(id) {
             const confirmed = window.confirm(`¿Estás seguro de eliminar la ciudad ${id}?`);
