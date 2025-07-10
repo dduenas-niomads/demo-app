@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('population')->nullable();
             $table->timestamps();
             
-            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
+        
         });
     }
 
