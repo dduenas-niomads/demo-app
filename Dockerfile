@@ -49,5 +49,8 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Opcional: Aumenta el límite de memoria de PHP
 # RUN echo 'memory_limit = 512M' > /usr/local/etc/php/conf.d/memlimit.ini
 
+RUN chown -R www-data:www-data /var/www/html/storage \
+    && chown -R www-data:www-data /var/www/html/database
+
 # Expone el puerto 80
 EXPOSE 80
