@@ -25,8 +25,8 @@ class UpdateCityRequest extends FormRequest
             //
             'name'         => 'string|required|max:100',
             'description'  => 'string|required',
-            'country'      => 'string|required',
-            'population'   => 'numeric'
+            'country_id'      => 'nullable|exists:countries,id',
+            'population'   => 'nullable|numeric'
         ];
     }
 }
