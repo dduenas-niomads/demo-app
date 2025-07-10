@@ -11,7 +11,8 @@ class CityController extends Controller
 {
     public function index()
     {
-        return City::all();
+        return City::with('country:id,name,flag')
+            ->get();
     }
 
     public function store(StoreCityRequest $request)
@@ -22,7 +23,7 @@ class CityController extends Controller
     public function show(City $city)
     {
         // Carga el país relacionado con la ciudad
-        $city->load('country');
+        $city->load('country:id,name,flag');
         return $city;
     }
 
