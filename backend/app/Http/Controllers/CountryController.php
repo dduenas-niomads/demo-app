@@ -47,6 +47,7 @@ class CountryController extends Controller
      */
     public function show(Country $country)
     {
+        $country->load('cities');
         return $country;
     }
 
