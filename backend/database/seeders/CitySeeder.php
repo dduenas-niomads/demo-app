@@ -75,7 +75,7 @@ class CitySeeder extends Seeder
             $citiesToInsert[] = [
                 'name' => $city['name'],
                 'description' => $city['description'],
-                'country_id' => $countryId,
+                'country_id' => $country_Id['country_id'],
                 'created_at' => $now,
                 'updated_at' => $now,
             ];
