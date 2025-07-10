@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ConceptSeeder::class,
             CountrySeeder::class,
+            CitySeeder::class,
         ]);
     }
 }
