@@ -70,12 +70,12 @@ class CitySeeder extends Seeder
 
     $citiesToInsert = [];
     foreach ($cities as $city) {
-        $countryId = DB::table('countries')->where('name', $city['country'])->value('id');
+        $countryId = DB::table('countries')->where('name', $city['country'])->first();
         if ($countryId) {
             $citiesToInsert[] = [
                 'name' => $city['name'],
                 'description' => $city['description'],
-                'country_id' => $country_Id['country_id'],
+                'country_id' => $countryId->id,
                 'created_at' => $now,
                 'updated_at' => $now,
             ];
