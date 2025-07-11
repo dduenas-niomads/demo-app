@@ -9,10 +9,16 @@ use App\Http\Requests\UpdateCityRequest;
 
 class CityController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return City::with('country:id,name,flag')
-            ->get();
+        $params = $request->all();
+        $citiesList = City::with('country:id,name,flag');
+
+        if (isset($params['country_id'])) {
+            $citiesList = $citiesList->where('country_id', $params['country_id']);
+        }
+
+        return $citiesList->get();
     }
 
     public function store(StoreCityRequest $request)
