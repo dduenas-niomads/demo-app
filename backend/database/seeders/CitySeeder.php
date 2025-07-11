@@ -69,6 +69,7 @@ class CitySeeder extends Seeder
 
 
     $citiesToInsert = [];
+      
     foreach ($cities as $city) {
         $countryId = DB::table('countries')->where('name', $city['country'])->first();
         if ($countryId) {
@@ -80,8 +81,9 @@ class CitySeeder extends Seeder
                 'updated_at' => $now,
             ];
         }
-
     }
+}
+    
 
     DB::table('cities')->insert($citiesToInsert);
 
