@@ -20,7 +20,7 @@
         <textarea class="form-control" id="description" rows="5" required></textarea>
       </div>
       <div class="mb-3">
-        <label for="country" class="form-label">Country</label>
+        <label for="country" class="form-label">País</label>
         <select id="country" class="form-control">
           <option value="0">Seleccione un país</option>
         </select>
@@ -46,7 +46,7 @@
 
       const name = document.getElementById('name').value.trim();
       const description = document.getElementById('description').value.trim();
-      const country = document.getElementById('country').value.trim();
+      const countryId = document.getElementById('country').value.trim();
       const population = parseInt(document.getElementById('population').value.trim());
 
       if (!accessToken || !tokenType) {
@@ -62,14 +62,15 @@
         },
         //Añade el campo poblacion al servidor
         body: JSON.stringify({
-          name,
-          description,
-          country,
-          population
+          name: name,
+          description: description,
+          country_id: countryId,
+          population: population
         })
       })
       .then(response => {
         if (response.ok) {
+          alert('Ciudad creada correctamente.');
           window.location.href = './index.html';
         } else {
           return response.json().then(data => {
@@ -83,7 +84,7 @@
       });
     });
 
-    function obtenerListadoDePaises() {      
+    function obtenerListadoDePaises() {
         if (!accessToken && !tokenType) {
             errorMessage.textContent = 'No hay sesión activa.';
             return;
@@ -104,7 +105,7 @@
         });
     }
 
-    function showDataInSelect(data) {        
+    function showDataInSelect(data) {
         const select = document.getElementById('country');
         select.innerHTML = ``;
 
