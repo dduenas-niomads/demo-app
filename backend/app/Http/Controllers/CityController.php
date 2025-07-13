@@ -18,7 +18,7 @@ class CityController extends Controller
             $citiesList = $citiesList->where('country_id', $params['country_id']);
         }
 
-        return $citiesList->get();
+        return response()->json($citiesList->get());
     }
 
     public function store(StoreCityRequest $request)
